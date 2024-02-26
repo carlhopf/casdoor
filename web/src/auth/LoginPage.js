@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Checkbox, Col, Form, Input, Result, Spin, Tabs} from "antd";
+import {Button, Checkbox, Col, Divider, Form, Input, Result, Spin, Tabs} from "antd";
 import {ArrowLeftOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
 import {withRouter} from "react-router-dom";
 import * as UserWebauthnBackend from "../backend/UserWebauthnBackend";
@@ -647,19 +647,26 @@ class LoginPage extends React.Component {
         signinItem.rule = showForm ? "small" : "big";
       }
 
+      const visibleProviders = application.providers.filter(providerItem => this.isProviderVisible(providerItem));
+
+      if (visibleProviders.length === 0) {
+        return null;
+      }
+
       return (
         <div>
+          <Divider>or</Divider>
           <div dangerouslySetInnerHTML={{__html: signinItem.label}} />
-          <Form.Item>
+          <div style={{display: "flex", gap: "1rem", justifyContent: "center"}}>
             {
-              application.providers.filter(providerItem => this.isProviderVisible(providerItem)).map(providerItem => {
+              visibleProviders.map(providerItem => {
                 return ProviderButton.renderProviderLogo(providerItem.provider, application, null, null, signinItem.rule, this.props.location);
               })
             }
             {
               this.renderOtherFormProvider(application)
             }
-          </Form.Item>
+          </div>
         </div>
       );
     } else if (signinItem.name.startsWith("Text ") || signinItem?.isCustom) {

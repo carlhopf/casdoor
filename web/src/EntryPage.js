@@ -116,6 +116,7 @@ class EntryPage extends React.Component {
             <Route exact path="/buy-plan/:owner/:pricingName/result" render={(props) => <PaymentResultPage {...this.props} pricing={this.state.pricing} onUpdatePricing={onUpdatePricing} {...props} />} />
             <Route exact path="/qrcode/:owner/:paymentName" render={(props) => <QrCodePage {...this.props} onUpdateApplication={onUpdateApplication} {...props} />} />
           </Switch>
+          <div style={{opacity: "0.3", textAlign: "center", padding: "1.5rem"}}>Powered by <a href="https://casdoor.org/" style={{textDecoration: "none", color: "inherit"}}>Casdoor</a></div>
         </div>
       </React.Fragment>
     );

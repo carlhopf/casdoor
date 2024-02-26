@@ -44,6 +44,14 @@ img {
   text-align: center;
 }
 
+.provider-img {
+  width: 30px;
+}
+
+.provider-big-img {
+  width: 50px;
+}
+
 .select-box {
   display: flex;
   align-items: center;
@@ -99,26 +107,36 @@ img {
   box-shadow: 0 0 20px rgb(0 0 0 / 20%);
 }
 
+.login-content {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  justify-content: center;
+}
+
 .login-panel {
   display: flex;
   background-color: #fff;
+  flex-direction: row;
   justify-content: center;
   flex-grow: 1;
   max-width: 520px;
   border-radius: 1rem;
-  padding: 4rem 2rem;
 }
 
 .login-form {
-  flex-grow: 1;
   max-width: 400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  flex-grow: 1;
 }
 
 .loginBackground {
   flex: auto;
   display: flex;
+  flex-direction: column;
   padding: 1rem;
-  align-items: center;
+  align-items: stretch;
   background: #edeff6 no-repeat;
   justify-content: center;
   background-size: 100% 100%;
