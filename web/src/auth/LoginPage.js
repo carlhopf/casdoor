@@ -238,18 +238,6 @@ class LoginPage extends React.Component {
     this.props.onUpdateApplication(application);
   }
 
-  parseOffset(offset) {
-    if (offset === 2 || offset === 4 || Setting.inIframe() || Setting.isMobile()) {
-      return "0 auto";
-    }
-    if (offset === 1) {
-      return "0 10%";
-    }
-    if (offset === 3) {
-      return "0 60%";
-    }
-  }
-
   populateOauthValues(values) {
     if (this.getApplicationObj()?.organization) {
       values["organization"] = this.getApplicationObj().organization;
@@ -680,7 +668,7 @@ class LoginPage extends React.Component {
       );
     } else if (signinItem.name === "Signup link") {
       return (
-        <div style={{width: "100%"}} className="login-signup-link">
+        <div style={{display: "flex", justifyContent: "center", marginTop: "1rem"}} className="login-signup-link">
           <div dangerouslySetInnerHTML={{__html: signinItem.label}} />
           {this.renderFooter(application)}
         </div>
@@ -714,15 +702,6 @@ class LoginPage extends React.Component {
 
     const showForm = Setting.isPasswordEnabled(application) || Setting.isCodeSigninEnabled(application) || Setting.isWebAuthnEnabled(application) || Setting.isLdapEnabled(application);
     if (showForm) {
-      let loginWidth = 320;
-      if (Setting.getLanguage() === "fr") {
-        loginWidth += 20;
-      } else if (Setting.getLanguage() === "es") {
-        loginWidth += 40;
-      } else if (Setting.getLanguage() === "ru") {
-        loginWidth += 10;
-      }
-
       return (
         <Form
           name="normal_login"
@@ -737,7 +716,6 @@ class LoginPage extends React.Component {
           onFinish={(values) => {
             this.onFinish(values);
           }}
-          style={{width: `${loginWidth}px`}}
           size="large"
           ref={this.form}
         >
@@ -1032,7 +1010,7 @@ class LoginPage extends React.Component {
 
     if (items.length > 1) {
       return (
-        <div>
+        <div style={{position: "relative", overflow: "hidden", width: "100%"}}>
           <Tabs className="signin-methods" items={items} size={"small"} defaultActiveKey={this.getDefaultLoginMethod(application)} onChange={(key) => {
             this.setState({loginMethod: key});
           }} centered>
@@ -1170,7 +1148,7 @@ class LoginPage extends React.Component {
     return (
       <React.Fragment>
         <CustomGithubCorner />
-        <div className="login-content" style={{margin: this.props.preview ?? this.parseOffset(application.formOffset)}}>
+        <div className="login-content">
           {Setting.inIframe() || Setting.isMobile() ? null : <div dangerouslySetInnerHTML={{__html: application.formCss}} />}
           {Setting.inIframe() || !Setting.isMobile() ? null : <div dangerouslySetInnerHTML={{__html: application.formCssMobile}} />}
           <div className="login-panel">
@@ -1178,13 +1156,9 @@ class LoginPage extends React.Component {
               <div dangerouslySetInnerHTML={{__html: application.formSideHtml}} />
             </div>
             <div className="login-form">
-              <div>
-                <div>
-                  {
-                    this.renderLoginPanel(application)
-                  }
-                </div>
-              </div>
+              {
+                this.renderLoginPanel(application)
+              }
             </div>
           </div>
         </div>

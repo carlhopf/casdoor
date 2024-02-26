@@ -31,38 +31,6 @@ import {CountryCodeSelect} from "../common/select/CountryCodeSelect";
 import * as PasswordChecker from "../common/PasswordChecker";
 import * as InvitationBackend from "../backend/InvitationBackend";
 
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-
-export const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
 class SignupPage extends React.Component {
   constructor(props) {
     super(props);
@@ -550,7 +518,7 @@ class SignupPage extends React.Component {
         </Form.Item>
       );
     } else if (signupItem.name === "Agreement") {
-      return AgreementModal.renderAgreementFormItem(application, required, tailFormItemLayout, this);
+      return AgreementModal.renderAgreementFormItem(application, required, {}, this);
     } else if (signupItem.name.startsWith("Text ")) {
       return (
         <div dangerouslySetInnerHTML={{__html: signupItem.label}} />
@@ -592,7 +560,6 @@ class SignupPage extends React.Component {
     }
     return (
       <Form
-        {...formItemLayout}
         ref={this.form}
         name="signup"
         onFinish={(values) => this.onFinish(values)}
@@ -603,8 +570,7 @@ class SignupPage extends React.Component {
           countryCode: application.organizationObj.countryCodes?.[0],
         }}
         size="large"
-        layout={Setting.isMobile() ? "vertical" : "horizontal"}
-        style={{width: Setting.isMobile() ? "300px" : "400px"}}
+        layout={"vertical"}
       >
         <Form.Item
           name="application"
@@ -631,7 +597,7 @@ class SignupPage extends React.Component {
         {
           application.signupItems?.map(signupItem => this.renderFormItem(application, signupItem))
         }
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             {i18next.t("account:Sign Up")}
           </Button>
@@ -671,7 +637,7 @@ class SignupPage extends React.Component {
     return (
       <React.Fragment>
         <CustomGithubCorner />
-        <div className="login-content" style={{margin: this.props.preview ?? this.parseOffset(application.formOffset)}}>
+        <div className="login-content">
           {Setting.inIframe() || Setting.isMobile() ? null : <div dangerouslySetInnerHTML={{__html: application.formCss}} />}
           {Setting.inIframe() || !Setting.isMobile() ? null : <div dangerouslySetInnerHTML={{__html: application.formCssMobile}} />}
           <div className="login-panel" >
@@ -682,9 +648,11 @@ class SignupPage extends React.Component {
               {
                 Setting.renderHelmet(application)
               }
-              {
-                Setting.renderLogo(application)
-              }
+              <div className="login-logo-box">
+                {
+                  Setting.renderLogo(application)
+                }
+              </div>
               <LanguageSelect languages={application.organizationObj.languages} style={{top: "55px", right: "5px", position: "absolute"}} />
               {
                 this.renderForm(application)

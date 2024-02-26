@@ -213,7 +213,7 @@ func extendApplicationWithSigninItems(application *Application) (err error) {
 		application.SigninItems = append(application.SigninItems, signinItem)
 		signinItem = &SigninItem{
 			Name:        "Languages",
-			Visible:     true,
+			Visible:     false,
 			Label:       "\n<style>\n  .login-languages {\n      top: 55px;\n      right: 5px;\n      position: absolute;\n  }\n</style>\n",
 			Placeholder: "",
 			Rule:        "None",
@@ -221,7 +221,7 @@ func extendApplicationWithSigninItems(application *Application) (err error) {
 		application.SigninItems = append(application.SigninItems, signinItem)
 		signinItem = &SigninItem{
 			Name:        "Logo",
-			Visible:     true,
+			Visible:     false,
 			Label:       "\n<style>\n  .login-logo-box {\n  }\n<style>\n",
 			Placeholder: "",
 			Rule:        "None",
@@ -229,7 +229,7 @@ func extendApplicationWithSigninItems(application *Application) (err error) {
 		application.SigninItems = append(application.SigninItems, signinItem)
 		signinItem = &SigninItem{
 			Name:        "Signin methods",
-			Visible:     true,
+			Visible:     false,
 			Label:       "\n<style>\n  .signin-methods {\n  }\n<style>\n",
 			Placeholder: "",
 			Rule:        "None",
@@ -278,7 +278,7 @@ func extendApplicationWithSigninItems(application *Application) (err error) {
 		signinItem = &SigninItem{
 			Name:        "Signup link",
 			Visible:     true,
-			Label:       "\n<style>\n  .login-signup-link {\n    margin-bottom: 24px;\n    display: flex;\n    justify-content: end;\n}\n<style>\n",
+			Label:       "\n<style>\n  .login-signup-link {\n    display: flex;\n    margin-top: 1rem;\n    justify-content: center;\n}\n<style>\n",
 			Placeholder: "",
 			Rule:        "None",
 		}
@@ -286,7 +286,7 @@ func extendApplicationWithSigninItems(application *Application) (err error) {
 		signinItem = &SigninItem{
 			Name:        "Providers",
 			Visible:     true,
-			Label:       "\n<style>\n  .provider-img {\n      width: 30px;\n      margin: 5px;\n  }\n  .provider-big-img {\n      margin-bottom: 10px;\n  }\n</style>\n",
+			Label:       "\n<style>\n  .provider-img {\n      width: 30px;\n      margin: 5px;\n  }\n  .provider-big-img {\n      margin-top: 10px;\n  }\n</style>\n",
 			Placeholder: "",
 			Rule:        "None",
 		}
