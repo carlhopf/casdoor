@@ -358,7 +358,7 @@ class SignupPage extends React.Component {
             signupItem.rule !== "No verification" &&
             <Form.Item
               name="emailCode"
-              label={signupItem.label ? signupItem.label : i18next.t("code:Email code")}
+              label={signupItem.label ? signupItem.label : i18next.t("code:Verification code")}
               rules={[{
                 required: required,
                 message: i18next.t("code:Please input your verification code!"),
