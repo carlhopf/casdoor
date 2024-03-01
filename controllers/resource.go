@@ -168,9 +168,9 @@ func (c *ApiController) DeleteResource() {
 	}
 
 	if resource.Provider != "" {
-		c.Input().Set("provider", resource.Provider)
+		c.Ctx.Input.SetParam("provider", resource.Provider)
 	}
-	c.Input().Set("fullFilePath", resource.Name)
+	c.Ctx.Input.SetParam("fullFilePath", resource.Name)
 	provider, err := c.GetProviderFromContext("Storage")
 	if err != nil {
 		c.ResponseError(err.Error())
