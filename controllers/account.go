@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"context"
 
 	"github.com/casdoor/casdoor/form"
 	"github.com/casdoor/casdoor/object"
@@ -308,7 +309,7 @@ func (c *ApiController) Logout() {
 
 		c.ClearUserSession()
 		owner, username := util.GetOwnerAndNameFromId(user)
-		_, err := object.DeleteSessionId(util.GetSessionId(owner, username, object.CasdoorApplication), c.Ctx.Input.CruSession.SessionID())
+		_, err := object.DeleteSessionId(util.GetSessionId(owner, username, object.CasdoorApplication), c.Ctx.Input.CruSession.SessionID(context.Background()))
 		if err != nil {
 			c.ResponseError(err.Error())
 			return
@@ -356,7 +357,7 @@ func (c *ApiController) Logout() {
 		// TODO https://github.com/casdoor/casdoor/pull/1494#discussion_r1095675265
 		owner, username := util.GetOwnerAndNameFromId(user)
 
-		_, err = object.DeleteSessionId(util.GetSessionId(owner, username, object.CasdoorApplication), c.Ctx.Input.CruSession.SessionID())
+		_, err = object.DeleteSessionId(util.GetSessionId(owner, username, object.CasdoorApplication), c.Ctx.Input.CruSession.SessionID(context.Background()))
 		if err != nil {
 			c.ResponseError(err.Error())
 			return
