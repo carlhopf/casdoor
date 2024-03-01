@@ -42,12 +42,12 @@ func GetConfigString(key string) string {
 		return value
 	}
 
-	res := beego.AppConfig.String(key)
+	res := beego.AppConfig.DefaultString(key, "")
 	if res == "" {
 		if key == "staticBaseUrl" {
 			res = "https://cdn.casbin.org"
 		} else if key == "logConfig" {
-			res = fmt.Sprintf("{\"filename\": \"logs/%s.log\", \"maxdays\":99999, \"perm\":\"0770\"}", beego.AppConfig.String("appname"))
+			res = fmt.Sprintf("{\"filename\": \"logs/%s.log\", \"maxdays\":99999, \"perm\":\"0770\"}", beego.AppConfig.DefaultString("appname", ""))
 		}
 	}
 

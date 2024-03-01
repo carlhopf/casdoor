@@ -34,7 +34,7 @@ func init() {
 }
 
 func initQuota() {
-	res := beego.AppConfig.String("quota")
+	res := beego.AppConfig.DefaultString("quota", "")
 	if res != "" {
 		err := json.Unmarshal([]byte(res), quota)
 		if err != nil {

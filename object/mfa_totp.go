@@ -34,7 +34,7 @@ type TotpMfa struct {
 }
 
 func (mfa *TotpMfa) Initiate(userId string) (*MfaProps, error) {
-	//issuer := beego.AppConfig.String("appname")
+	//issuer := beego.AppConfig.DefaultString("appname", "")
 	//if issuer == "" {
 	//	issuer = "casdoor"
 	//}
