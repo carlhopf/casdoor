@@ -6,6 +6,7 @@ require (
 	github.com/Masterminds/squirrel v1.5.3
 	github.com/alexedwards/argon2id v0.0.0-20211130144151-3585854a6387
 	github.com/aws/aws-sdk-go v1.45.5
+	github.com/beego/beego v1.12.12
 	github.com/beego/beego/v2 v2.1.6 // indirect
 	github.com/beevik/etree v1.1.0
 	github.com/casbin/casbin/v2 v2.77.2

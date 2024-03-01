@@ -17,8 +17,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/beego/beego"
-	"github.com/beego/beego/logs"
+	beego "github.com/beego/beego/v2/server/web"
+	"github.com/beego/beego/v2/core/logs"
 	_ "github.com/beego/beego/session/redis"
 	"github.com/casdoor/casdoor/authz"
 	"github.com/casdoor/casdoor/conf"

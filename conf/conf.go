@@ -21,7 +21,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/beego/beego"
+	beego "github.com/beego/beego/v2/server/web"
 )
 
 func init() {
