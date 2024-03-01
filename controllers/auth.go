@@ -24,6 +24,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"context"
 
 	"github.com/casdoor/casdoor/captcha"
 	"github.com/casdoor/casdoor/conf"
@@ -196,7 +197,7 @@ func (c *ApiController) HandleLoggedIn(application *object.Application, user *ob
 			Owner:       user.Owner,
 			Name:        user.Name,
 			Application: application.Name,
-			SessionId:   []string{c.Ctx.Input.CruSession.SessionID()},
+			SessionId:   []string{c.Ctx.Input.CruSession.SessionID(context.Background())},
 		})
 		if err != nil {
 			c.ResponseError(err.Error(), nil)

@@ -17,6 +17,7 @@ package controllers
 import (
 	"strings"
 	"time"
+	"context"
 
 	beego "github.com/beego/beego/v2/server/web"
 	"github.com/beego/beego/v2/core/logs"
@@ -199,7 +200,7 @@ func (c *ApiController) setMfaUserSession(userId string) {
 }
 
 func (c *ApiController) getMfaUserSession() string {
-	userId := c.Ctx.Input.CruSession.Get(object.MfaSessionUserId)
+	userId := c.Ctx.Input.CruSession.Get(context.Background(), object.MfaSessionUserId)
 	if userId == nil {
 		return ""
 	}
