@@ -43,14 +43,14 @@ import (
 // @Success		200 		{array} 	object.Resource 	The Response object
 // @router /get-resources [get]
 func (c *ApiController) GetResources() {
-	owner := c.Input().Get("owner")
-	user := c.Input().Get("user")
-	limit := c.Input().Get("pageSize")
-	page := c.Input().Get("p")
-	field := c.Input().Get("field")
-	value := c.Input().Get("value")
-	sortField := c.Input().Get("sortField")
-	sortOrder := c.Input().Get("sortOrder")
+	owner := c.GetString("owner")
+	user := c.GetString("user")
+	limit := c.GetString("pageSize")
+	page := c.GetString("p")
+	field := c.GetString("field")
+	value := c.GetString("value")
+	sortField := c.GetString("sortField")
+	sortOrder := c.GetString("sortOrder")
 
 	if sortField == "Direct" {
 		provider, err := c.GetProviderFromContext("Storage")
@@ -102,7 +102,7 @@ func (c *ApiController) GetResources() {
 // @Success 	200			{object}	object.Resource		The Response object
 // @router /get-resource [get]
 func (c *ApiController) GetResource() {
-	id := c.Input().Get("id")
+	id := c.GetString("id")
 
 	resource, err := object.GetResource(id)
 	if err != nil {
@@ -122,7 +122,7 @@ func (c *ApiController) GetResource() {
 // @Success 	200			{object}	controllers.Response					Success or error
 // @router /update-resource [post]
 func (c *ApiController) UpdateResource() {
-	id := c.Input().Get("id")
+	id := c.GetString("id")
 
 	var resource object.Resource
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &resource)
@@ -203,14 +203,14 @@ func (c *ApiController) DeleteResource() {
 // @Success   200             {object}  object.Resource  	FileUrl, objectKey
 // @router /upload-resource [post]
 func (c *ApiController) UploadResource() {
-	owner := c.Input().Get("owner")
-	username := c.Input().Get("user")
-	application := c.Input().Get("application")
-	tag := c.Input().Get("tag")
-	parent := c.Input().Get("parent")
-	fullFilePath := c.Input().Get("fullFilePath")
-	createdTime := c.Input().Get("createdTime")
-	description := c.Input().Get("description")
+	owner := c.GetString("owner")
+	username := c.GetString("user")
+	application := c.GetString("application")
+	tag := c.GetString("tag")
+	parent := c.GetString("parent")
+	fullFilePath := c.GetString("fullFilePath")
+	createdTime := c.GetString("createdTime")
+	description := c.GetString("description")
 
 	file, header, err := c.GetFile("file")
 	if err != nil {

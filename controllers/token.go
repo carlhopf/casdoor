@@ -32,14 +32,14 @@ import (
 // @Success 200 {array} object.Token The Response object
 // @router /get-tokens [get]
 func (c *ApiController) GetTokens() {
-	owner := c.Input().Get("owner")
-	limit := c.Input().Get("pageSize")
-	page := c.Input().Get("p")
-	field := c.Input().Get("field")
-	value := c.Input().Get("value")
-	sortField := c.Input().Get("sortField")
-	sortOrder := c.Input().Get("sortOrder")
-	organization := c.Input().Get("organization")
+	owner := c.GetString("owner")
+	limit := c.GetString("pageSize")
+	page := c.GetString("p")
+	field := c.GetString("field")
+	value := c.GetString("value")
+	sortField := c.GetString("sortField")
+	sortOrder := c.GetString("sortOrder")
+	organization := c.GetString("organization")
 	if limit == "" || page == "" {
 		token, err := object.GetTokens(owner, organization)
 		if err != nil {
@@ -75,7 +75,7 @@ func (c *ApiController) GetTokens() {
 // @Success 200 {object} object.Token The Response object
 // @router /get-token [get]
 func (c *ApiController) GetToken() {
-	id := c.Input().Get("id")
+	id := c.GetString("id")
 	token, err := object.GetToken(id)
 	if err != nil {
 		c.ResponseError(err.Error())
@@ -94,7 +94,7 @@ func (c *ApiController) GetToken() {
 // @Success 200 {object} controllers.Response The Response object
 // @router /update-token [post]
 func (c *ApiController) UpdateToken() {
-	id := c.Input().Get("id")
+	id := c.GetString("id")
 
 	var token object.Token
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &token)
@@ -158,17 +158,17 @@ func (c *ApiController) DeleteToken() {
 // @Success 401 {object} object.TokenError The Response object
 // @router /login/oauth/access_token [post]
 func (c *ApiController) GetOAuthToken() {
-	clientId := c.Input().Get("client_id")
-	clientSecret := c.Input().Get("client_secret")
-	grantType := c.Input().Get("grant_type")
-	code := c.Input().Get("code")
-	verifier := c.Input().Get("code_verifier")
-	scope := c.Input().Get("scope")
-	username := c.Input().Get("username")
-	password := c.Input().Get("password")
-	tag := c.Input().Get("tag")
-	avatar := c.Input().Get("avatar")
-	refreshToken := c.Input().Get("refresh_token")
+	clientId := c.GetString("client_id")
+	clientSecret := c.GetString("client_secret")
+	grantType := c.GetString("grant_type")
+	code := c.GetString("code")
+	verifier := c.GetString("code_verifier")
+	scope := c.GetString("scope")
+	username := c.GetString("username")
+	password := c.GetString("password")
+	tag := c.GetString("tag")
+	avatar := c.GetString("avatar")
+	refreshToken := c.GetString("refresh_token")
 
 	if clientId == "" && clientSecret == "" {
 		clientId, clientSecret, _ = c.Ctx.Request.BasicAuth()
@@ -241,11 +241,11 @@ func (c *ApiController) GetOAuthToken() {
 // @Success 401 {object} object.TokenError The Response object
 // @router /login/oauth/refresh_token [post]
 func (c *ApiController) RefreshToken() {
-	grantType := c.Input().Get("grant_type")
-	refreshToken := c.Input().Get("refresh_token")
-	scope := c.Input().Get("scope")
-	clientId := c.Input().Get("client_id")
-	clientSecret := c.Input().Get("client_secret")
+	grantType := c.GetString("grant_type")
+	refreshToken := c.GetString("refresh_token")
+	scope := c.GetString("scope")
+	clientId := c.GetString("client_id")
+	clientSecret := c.GetString("client_secret")
 	host := c.Ctx.Request.Host
 
 	if clientId == "" {
@@ -295,11 +295,11 @@ func (c *ApiController) ResponseTokenError(errorMsg string) {
 // @Success 401 {object} object.TokenError The Response object
 // @router /login/oauth/introspect [post]
 func (c *ApiController) IntrospectToken() {
-	tokenValue := c.Input().Get("token")
+	tokenValue := c.GetString("token")
 	clientId, clientSecret, ok := c.Ctx.Request.BasicAuth()
 	if !ok {
-		clientId = c.Input().Get("client_id")
-		clientSecret = c.Input().Get("client_secret")
+		clientId = c.GetString("client_id")
+		clientSecret = c.GetString("client_secret")
 		if clientId == "" || clientSecret == "" {
 			c.ResponseTokenError(object.InvalidRequest)
 			return

@@ -30,13 +30,13 @@ import (
 // @Success 200 {array} object.Adapter The Response object
 // @router /get-adapters [get]
 func (c *ApiController) GetAdapters() {
-	owner := c.Input().Get("owner")
-	limit := c.Input().Get("pageSize")
-	page := c.Input().Get("p")
-	field := c.Input().Get("field")
-	value := c.Input().Get("value")
-	sortField := c.Input().Get("sortField")
-	sortOrder := c.Input().Get("sortOrder")
+	owner := c.GetString("owner")
+	limit := c.GetString("pageSize")
+	page := c.GetString("p")
+	field := c.GetString("field")
+	value := c.GetString("value")
+	sortField := c.GetString("sortField")
+	sortOrder := c.GetString("sortOrder")
 
 	if limit == "" || page == "" {
 		adapters, err := object.GetAdapters(owner)
@@ -73,7 +73,7 @@ func (c *ApiController) GetAdapters() {
 // @Success 200 {object} object.Adapter The Response object
 // @router /get-adapter [get]
 func (c *ApiController) GetAdapter() {
-	id := c.Input().Get("id")
+	id := c.GetString("id")
 
 	adapter, err := object.GetAdapter(id)
 	if err != nil {
@@ -93,7 +93,7 @@ func (c *ApiController) GetAdapter() {
 // @Success 200 {object} controllers.Response The Response object
 // @router /update-adapter [post]
 func (c *ApiController) UpdateAdapter() {
-	id := c.Input().Get("id")
+	id := c.GetString("id")
 
 	var adapter object.Adapter
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &adapter)

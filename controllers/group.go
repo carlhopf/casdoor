@@ -29,14 +29,14 @@ import (
 // @Success 200 {array} object.Group The Response object
 // @router /get-groups [get]
 func (c *ApiController) GetGroups() {
-	owner := c.Input().Get("owner")
-	limit := c.Input().Get("pageSize")
-	page := c.Input().Get("p")
-	field := c.Input().Get("field")
-	value := c.Input().Get("value")
-	sortField := c.Input().Get("sortField")
-	sortOrder := c.Input().Get("sortOrder")
-	withTree := c.Input().Get("withTree")
+	owner := c.GetString("owner")
+	limit := c.GetString("pageSize")
+	page := c.GetString("p")
+	field := c.GetString("field")
+	value := c.GetString("value")
+	sortField := c.GetString("sortField")
+	sortOrder := c.GetString("sortOrder")
+	withTree := c.GetString("withTree")
 
 	if limit == "" || page == "" {
 		groups, err := object.GetGroups(owner)
@@ -77,7 +77,7 @@ func (c *ApiController) GetGroups() {
 // @Success 200 {object} object.Group The Response object
 // @router /get-group [get]
 func (c *ApiController) GetGroup() {
-	id := c.Input().Get("id")
+	id := c.GetString("id")
 
 	group, err := object.GetGroup(id)
 	if err != nil {
@@ -96,7 +96,7 @@ func (c *ApiController) GetGroup() {
 // @Success 200 {object} controllers.Response The Response object
 // @router /update-group [post]
 func (c *ApiController) UpdateGroup() {
-	id := c.Input().Get("id")
+	id := c.GetString("id")
 
 	var group object.Group
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &group)

@@ -294,9 +294,9 @@ func (c *ApiController) Signup() {
 // @router /logout [post]
 func (c *ApiController) Logout() {
 	// https://openid.net/specs/openid-connect-rpinitiated-1_0-final.html
-	accessToken := c.Input().Get("id_token_hint")
-	redirectUri := c.Input().Get("post_logout_redirect_uri")
-	state := c.Input().Get("state")
+	accessToken := c.GetString("id_token_hint")
+	redirectUri := c.GetString("post_logout_redirect_uri")
+	state := c.GetString("state")
 
 	user := c.GetSessionUsername()
 
@@ -400,7 +400,7 @@ func (c *ApiController) GetAccount() {
 		return
 	}
 
-	managedAccounts := c.Input().Get("managedAccounts")
+	managedAccounts := c.GetString("managedAccounts")
 	if managedAccounts == "1" {
 		user, err = object.ExtendManagedAccountsWithUser(user)
 		if err != nil {
@@ -498,8 +498,8 @@ func (c *ApiController) GetUserinfo2() {
 // @router /get-captcha [get]
 // @Success 200 {object} object.Userinfo The Response object
 func (c *ApiController) GetCaptcha() {
-	applicationId := c.Input().Get("applicationId")
-	isCurrentProvider := c.Input().Get("isCurrentProvider")
+	applicationId := c.GetString("applicationId")
+	isCurrentProvider := c.GetString("isCurrentProvider")
 
 	captchaProvider, err := object.GetCaptchaProviderByApplication(applicationId, isCurrentProvider, c.GetAcceptLanguage())
 	if err != nil {
